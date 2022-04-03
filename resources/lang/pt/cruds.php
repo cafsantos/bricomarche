@@ -131,6 +131,8 @@ return [
             'family_helper'     => ' ',
             'thumbnail'         => 'Thumbnail',
             'thumbnail_helper'  => ' ',
+            'gallery'           => 'Gallery',
+            'gallery_helper'    => ' ',
         ],
     ],
     'family' => [

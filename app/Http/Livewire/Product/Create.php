@@ -90,6 +90,14 @@ class Create extends Component
                 'integer',
                 'exists:media,id',
             ],
+            'mediaCollections.product_gallery' => [
+                'array',
+                'nullable',
+            ],
+            'mediaCollections.product_gallery.*.id' => [
+                'integer',
+                'exists:media,id',
+            ],
         ];
     }
 
