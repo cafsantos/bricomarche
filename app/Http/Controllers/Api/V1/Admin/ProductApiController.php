@@ -31,6 +31,10 @@ class ProductApiController extends Controller
             $product->addMedia(storage_path('tmp/uploads/' . basename($request->input('product_thumbnail'))))->toMediaCollection('product_thumbnail');
         }
 
+        foreach ($request->input('product_gallery', []) as $file) {
+            $product->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('product_gallery');
+        }
+
         return (new ProductResource($product))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
@@ -56,6 +60,20 @@ class ProductApiController extends Controller
             }
         } elseif ($product->product_thumbnail) {
             $product->product_thumbnail->delete();
+        }
+
+        if (count($product->product_gallery) > 0) {
+            foreach ($product->product_gallery as $media) {
+                if (!in_array($media->file_name, $request->input('product_gallery', []))) {
+                    $media->delete();
+                }
+            }
+        }
+        $media = $product->product_gallery->pluck('file_name')->toArray();
+        foreach ($request->input('product_gallery', []) as $file) {
+            if (count($media) === 0 || !in_array($file, $media)) {
+                $product->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('product_gallery');
+            }
         }
 
         return (new ProductResource($product))

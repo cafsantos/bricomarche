@@ -40,6 +40,16 @@
             {{ trans('cruds.product.fields.thumbnail_helper') }}
         </div>
     </div>
+    <div class="form-group {{ $errors->has('mediaCollections.product_gallery') ? 'invalid' : '' }}">
+        <label class="form-label" for="gallery">{{ trans('cruds.product.fields.gallery') }}</label>
+        <x-dropzone id="gallery" name="gallery" action="{{ route('admin.products.storeMedia') }}" collection-name="product_gallery" max-file-size="5" max-width="4096" max-height="4096" />
+        <div class="validation-message">
+            {{ $errors->first('mediaCollections.product_gallery') }}
+        </div>
+        <div class="help-block">
+            {{ trans('cruds.product.fields.gallery_helper') }}
+        </div>
+    </div>
 
     <div class="form-group">
         <button class="btn btn-indigo mr-2" type="submit">

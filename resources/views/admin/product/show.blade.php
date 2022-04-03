@@ -63,6 +63,18 @@
                                 @endforeach
                             </td>
                         </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.product.fields.gallery') }}
+                            </th>
+                            <td>
+                                @foreach($product->gallery as $key => $entry)
+                                    <a class="link-photo" href="{{ $entry['url'] }}">
+                                        <img src="{{ $entry['preview_thumbnail'] }}" alt="{{ $entry['name'] }}" title="{{ $entry['name'] }}">
+                                    </a>
+                                @endforeach
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

@@ -33,13 +33,14 @@ class Product extends Model implements HasMedia
         'family.name',
     ];
 
-    protected $appends = [
-        'thumbnail',
-    ];
-
     protected $fillable = [
         'name',
         'slug',
+    ];
+
+    protected $appends = [
+        'thumbnail',
+        'gallery',
     ];
 
     protected $dates = [
@@ -74,6 +75,18 @@ class Product extends Model implements HasMedia
     public function getThumbnailAttribute()
     {
         return $this->getMedia('product_thumbnail')->map(function ($item) {
+            $media = $item->toArray();
+            $media['url'] = $item->getUrl();
+            $media['thumbnail'] = $item->getUrl('thumbnail');
+            $media['preview_thumbnail'] = $item->getUrl('preview_thumbnail');
+
+            return $media;
+        });
+    }
+
+    public function getGalleryAttribute()
+    {
+        return $this->getMedia('product_gallery')->map(function ($item) {
             $media = $item->toArray();
             $media['url'] = $item->getUrl();
             $media['thumbnail'] = $item->getUrl('thumbnail');

@@ -45,6 +45,7 @@ class Edit extends Component
         $this->initListsForFields();
         $this->mediaCollections = [
             'product_thumbnail' => $product->thumbnail,
+            'product_gallery'   => $product->gallery,
         ];
     }
 
@@ -96,6 +97,14 @@ class Edit extends Component
                 'nullable',
             ],
             'mediaCollections.product_thumbnail.*.id' => [
+                'integer',
+                'exists:media,id',
+            ],
+            'mediaCollections.product_gallery' => [
+                'array',
+                'nullable',
+            ],
+            'mediaCollections.product_gallery.*.id' => [
                 'integer',
                 'exists:media,id',
             ],
